@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #74ebd5, #9face6);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .card {
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 2rem;
+        }
+        .result-box {
+            background-color: #fff3cd;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center text-white mb-5">Kalkulator</h1>
+
+        <!-- Matematyka -->
+        <form action="/calculate" method="post">
+            <div class="card p-4">
+                <h4>Matematyka</h4>
+                <input type="number" name="value1" class="form-control mb-2" placeholder="Wartość 1" required>
+                <input type="number" name="value2" class="form-control mb-2" placeholder="Wartość 2 (jeśli potrzebne)">
+                <select name="operation" class="form-select mb-2">
+                    <option value="add">Dodawanie</option>
+                    <option value="subtract">Odejmowanie</option>
+                    <option value="multiply">Mnożenie</option>
+                    <option value="divide">Dzielenie</option>
+                    <option value="sqrt">Pierwiastek kwadratowy</option>
+                    <option value="pow">Potęgowanie</option>
+                    <option value="sin">Sinus</option>
+                    <option value="cos">Cosinus</option>
+                </select>
+                <button class="btn btn-primary w-100">Oblicz</button>
+            </div>
+        </form>
+
+        <!-- Masa -->
+        <form action="/calculate" method="post">
+            <div class="card p-4">
+                <h4>Masa</h4>
+                <input type="number" name="value1" class="form-control mb-2" placeholder="Wartość" required>
+                <input type="hidden" name="operation" value="mass">
+                <div class="row mb-2">
+                    <div class="col">
+                        <select name="unitFrom" class="form-select">
+                            <option value="kg">kg</option>
+                            <option value="g">g</option>
+                            <option value="t">t</option>
+                            <option value="lb">lb</option>
+                        </select>
+                    </div>
+                    <div class="col text-center">→</div>
+                    <div class="col">
+                        <select name="unitTo" class="form-select">
+                            <option value="kg">kg</option>
+                            <option value="g">g</option>
+                            <option value="t">t</option>
+                            <option value="lb">lb</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn btn-success w-100">Przelicz</button>
+            </div>
+        </form>
+
+        <!-- Długość -->
+        <form action="/calculate" method="post">
+            <div class="card p-4">
+                <h4>Długość</h4>
+                <input type="number" name="value1" class="form-control mb-2" placeholder="Wartość" required>
+                <input type="hidden" name="operation" value="length">
+                <div class="row mb-2">
+                    <div class="col">
+                        <select name="unitFrom" class="form-select">
+                            <option value="m">m</option>
+                            <option value="cm">cm</option>
+                            <option value="mm">mm</option>
+                            <option value="ft">ft</option>
+                            <option value="in">in</option>
+                        </select>
+                    </div>
+                    <div class="col text-center">→</div>
+                    <div class="col">
+                        <select name="unitTo" class="form-select">
+                            <option value="m">m</option>
+                            <option value="cm">cm</option>
+                            <option value="mm">mm</option>
+                            <option value="ft">ft</option>
+                            <option value="in">in</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn btn-warning w-100">Przelicz</button>
+            </div>
+        </form>
+
+        <!-- Czas -->
+        <form action="/calculate" method="post">
+            <div class="card p-4">
+                <h4>Czas</h4>
+                <input type="number" name="value1" class="form-control mb-2" placeholder="Wartość" required>
+                <input type="hidden" name="operation" value="time">
+                <div class="row mb-2">
+                    <div class="col">
+                        <select name="unitFrom" class="form-select">
+                            <option value="sek">sekundy</option>
+                            <option value="min">minuty</option>
+                            <option value="h">godziny</option>
+                        </select>
+                    </div>
+                    <div class="col text-center">→</div>
+                    <div class="col">
+                        <select name="unitTo" class="form-select">
+                            <option value="sek">sekundy</option>
+                            <option value="min">minuty</option>
+                            <option value="h">godziny</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn btn-info w-100">Przelicz</button>
+            </div>
+        </form>
+
+        <!-- Wynik -->
+        <div class="mt-4">
+            <div class="result-box">
+                <h5>Wynik:</h5>
+                <p th:text="${result}"></p>
+            </div>
+        </div>
+
+        <!-- Historia -->
+        <div class="card p-4 mt-4">
+            <h4>Historia obliczeń</h4>
+            <ul class="list-group">
+                <li th:each="entry : ${history}" class="list-group-item" th:text="${entry.description}"></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
